@@ -1,6 +1,6 @@
 # Google-Mentorship-Project (2023)
 
-*Authors: Amber Shen, Aditya Pahuja, Calvin Zhang, Sophia Dasser*
+*Authors: Aditya Pahuja, Amber Shen, Calvin Zhang, Sophia Dasser*
 
 This project is a website that translates the American Sign Language alphabet into English. The user signs the letters into a live streaming video on the website, and the corresponding English letters are shown in real-time. (also maybe add in a section like the abstract we had explaining it)
 
