@@ -8,7 +8,7 @@ from mediapipe_model_maker import gesture_recognizer
 import matplotlib.pyplot as plt
 # !wget https://storage.googleapis.com/mediapipe-tasks/gesture_recognizer/rps_data_sample.zip
 # !unzip rps_data_sample.zip
-dataset_path = "rps_data_sample\\rps_data_sample"
+dataset_path = "rps_data_sample/rps_data_sample"
 
 print(dataset_path)
 labels = []
@@ -18,7 +18,7 @@ for i in os.listdir(dataset_path):
 print(labels)
  
 # SHOW EXAMPLES
-'''
+
 NUM_EXAMPLES = 5
 
 for label in labels:
@@ -32,7 +32,7 @@ for label in labels:
   fig.suptitle(f'Showing {NUM_EXAMPLES} examples for {label}')
 
 plt.show()
-'''
+
 
 # LOAD DATASET
 data = gesture_recognizer.Dataset.from_folder(
