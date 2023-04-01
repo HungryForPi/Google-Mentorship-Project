@@ -6,7 +6,7 @@ assert tf.__version__.startswith('2')
 from mediapipe_model_maker import gesture_recognizer
 
 import matplotlib.pyplot as plt
-dataset_path = "asl"
+dataset_path = "asl_alphabet_train/asl_alphabet_train"
 
 print(dataset_path)
 labels = []
