@@ -1,4 +1,4 @@
-# from google.colab import files (WHY DOES THIS NOT WORK :(( )))
+from google.colab import files #(WHY DOES THIS NOT WORK :(( )))
 import os
 import tensorflow as tf
 assert tf.__version__.startswith('2')
@@ -52,3 +52,5 @@ model = gesture_recognizer.GestureRecognizer.create(
 
 loss, acc = model.evaluate(test_data, batch_size=1)
 print(f"Test loss:{loss}, Test accuracy:{acc}")
+model.export_model()
+# files.download('exported_model/demo_gesture_recognizer.task')
