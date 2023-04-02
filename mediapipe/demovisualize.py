@@ -12,7 +12,7 @@ def print_result(result: GestureRecognizerResult, output_image: mp.Image, timest
     print('gesture recognition result: {}'.format(result))
 
 options = GestureRecognizerOptions(
-    base_options=BaseOptions(model_asset_path='/path/to/model.task'),
+    base_options=BaseOptions(model_asset_path='exported_model/demo_gesture_recognizer.task'),
     running_mode=VisionRunningMode.LIVE_STREAM,
     result_callback=print_result)
 with GestureRecognizer.create_from_options(options) as recognizer:
@@ -22,7 +22,9 @@ with GestureRecognizer.create_from_options(options) as recognizer:
     # The gesture recognizer must be created with the live stream mode.
     # Use OpenCV’s VideoCapture to start capturing from the webcam.
     # Create a loop to read the latest frame from the camera using VideoCapture#read()
-    vid = cv2.VideoCapture(0)
+    # vid = cv2.VideoCapture(cv2.CAP_V4L2)
+    vid = cv2.VideoCaptzure(0)
+    # vid = cv2.VideoCapture(44)
     frame_timestamp_ms = 100 #?? maybe change
     while(vid.isOpened()):
     # Capture the video frame by frame
