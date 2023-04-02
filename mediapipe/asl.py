@@ -41,7 +41,7 @@ data = gesture_recognizer.Dataset.from_folder(
     dirname=dataset_path,
     hparams=gesture_recognizer.HandDataPreprocessingParams()
 )
-train_data, rest_data = data.split(.1)
+train_data, rest_data = data.split(.8)
 validation_data, test_data = rest_data.split(0.5)
 
 hparams = gesture_recognizer.HParams(export_dir="exported_model")
