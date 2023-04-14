@@ -28,4 +28,4 @@ top_category = classification_result.classifications[0].categories[0]
 predictions.append(f"{top_category.category_name} ({top_category.score:.2f})")
 
 print(predictions)
-# display_batch_of_images(images, predictions)
+# display_batch_of_images(images, predictions) this is a google colab thing
