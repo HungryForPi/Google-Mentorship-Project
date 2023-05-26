@@ -1,4 +1,4 @@
-# from google.colab import files (WHY DOES THIS NOT WORK :(( )))
+# from google.colab import files #(WHY DOES THIS NOT WORK :(( )))
 import os
 import tensorflow as tf
 assert tf.__version__.startswith('2')
@@ -8,7 +8,7 @@ from mediapipe_model_maker import gesture_recognizer
 # import matplotlib
 # matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
-dataset_path = "mediapipe/asl_alphabet_train/asl_alphabet_train"
+dataset_path = "/mediapipe/asl_alphabet_train" #set this path
 
 print(dataset_path)
 labels = []
@@ -36,6 +36,8 @@ print(labels)
 # # plt.show()
 # # plt.close()
 
+print("Training model")
+
 # LOAD DATASET
 data = gesture_recognizer.Dataset.from_folder(
     dirname=dataset_path,
@@ -54,3 +56,5 @@ model = gesture_recognizer.GestureRecognizer.create(
 
 loss, acc = model.evaluate(test_data, batch_size=1)
 print(f"Test loss:{loss}, Test accuracy:{acc}")
+model.export_model("asl_gesture_recognizer.task")
+# files.download('exported_model/asl_gesture_recognizer.task')
