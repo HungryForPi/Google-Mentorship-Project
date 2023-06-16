@@ -9,7 +9,10 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 
 # Create a gesture recognizer instance with the live stream mode:
 def print_result(result: GestureRecognizerResult, output_image: mp.Image, timestamp_ms: int):
-    print('gesture recognition result: {}'.format(result))
+  try:
+    print(result.gestures[0][0].category_name)
+  except:
+    print("no result")
 
 options = GestureRecognizerOptions(
     base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
@@ -28,7 +31,7 @@ with GestureRecognizer.create_from_options(options) as recognizer:
       cv2.imshow('frame', frame)
     # Convert the frame received from OpenCV to a MediaPipe’s Image object.
       mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-      recognizer.recognize_async(mp_image, timestamp)
+      recognizer.recognize_async(mp_image,timestamp)
       if cv2.waitKey(1) & 0xFF == ord('q'): #press q to stop
           break
   vid.release()
