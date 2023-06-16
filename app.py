@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -21,7 +21,7 @@ def home():
     if form.validate_on_submit():
         file = form.file.data # First grab the file
         file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(file.filename))) # Then save the file
-        return asl_recognizer.recognize_image(file.filename)
+        return render_template('results.html', results = asl_recognizer.recognize_image(file.filename), filename = file.filename)
     return render_template('index.html', form=form)
 
 if __name__ == '__main__':
