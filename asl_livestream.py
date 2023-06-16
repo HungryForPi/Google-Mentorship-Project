@@ -19,14 +19,16 @@ with GestureRecognizer.create_from_options(options) as recognizer:
   # Use OpenCV’s VideoCapture to start capturing from the webcam.
   vid = cv2.VideoCapture(0)
   print(vid.isOpened())
+  timestamp = 0
   while(vid.isOpened()):
+      timestamp+=1
     # Capture the video frame by frame
       ret, frame = vid.read()
     #   frame_timestamp_ms = 100
       cv2.imshow('frame', frame)
     # Convert the frame received from OpenCV to a MediaPipe’s Image object.
       mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-      recognizer.recognize_async(mp_image, mp.Timestamp.microseconds())
+      recognizer.recognize_async(mp_image, timestamp)
       if cv2.waitKey(1) & 0xFF == ord('q'): #press q to stop
           break
   vid.release()
