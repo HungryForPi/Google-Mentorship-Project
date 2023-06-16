@@ -3,6 +3,7 @@ from mediapipe.framework.formats import landmark_pb2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+import math
 #visualization
 plt.rcParams.update({
     'axes.spines.top': False,
@@ -89,7 +90,7 @@ def recognize_image(filename):
 
     images = []
     results = []
-    image_file_name = filename
+    image_file_name = 'static/files/'+filename
     # for image_file_name in IMAGE_FILENAMES:
     # STEP 3: Load the input image.
     image = mp.Image.create_from_file(image_file_name)
@@ -106,5 +107,6 @@ def recognize_image(filename):
         hand_landmarks = recognition_result.hand_landmarks
         results.append((top_gesture, hand_landmarks))
     
-    display_batch_of_images_with_gestures_and_hand_landmarks(images, results)
-    return results
+    # commented out bc it crashes python "nsinternalinconsistencyexception"
+    #display_batch_of_images_with_gestures_and_hand_landmarks(images, results)
+    return results[0][0].category_name
