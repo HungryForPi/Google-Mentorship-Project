@@ -22,7 +22,7 @@ with GestureRecognizer.create_from_options(options) as recognizer:
   while(vid.isOpened()):
     # Capture the video frame by frame
       ret, frame = vid.read()
-      frame_timestamp_ms = 100
+    #   frame_timestamp_ms = 100
       cv2.imshow('frame', frame)
     # Convert the frame received from OpenCV to a MediaPipe’s Image object.
       mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
