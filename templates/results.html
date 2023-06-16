@@ -13,6 +13,9 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+    </nav>
     <h1>RESULTS</h1>
     <h3>{{results}}</h3>
     <img src="static/files/{{ filename }}" alt="User Image">
