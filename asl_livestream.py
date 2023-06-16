@@ -26,7 +26,7 @@ with GestureRecognizer.create_from_options(options) as recognizer:
       cv2.imshow('frame', frame)
     # Convert the frame received from OpenCV to a MediaPipe’s Image object.
       mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-      recognizer.recognize_async(mp_image, frame_timestamp_ms)
+      recognizer.recognize_async(mp_image, mp.Timestamp())
       if cv2.waitKey(1) & 0xFF == ord('q'): #press q to stop
           break
   vid.release()
