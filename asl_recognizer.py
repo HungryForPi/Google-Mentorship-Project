@@ -110,6 +110,9 @@ def recognize_image(filename):
     # commented out bc it crashes python "nsinternalinconsistencyexception"
     #display_batch_of_images_with_gestures_and_hand_landmarks(images, results)
     try:
-        return results[0][0].category_name
+        if(results[0][0].category_name != ""):
+            return results[0][0].category_name
+        else:
+            return "No accurate results"
     except:
         return "No accurate results"
