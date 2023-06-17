@@ -15,12 +15,13 @@
 <body>
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('livestream') }}">Livestream</a>
     </nav>
     <h1>LIVESTREAM</h1>
     <div>
         <img src="{{ url_for('video') }}" width="50%"/>
     </div>
     <h1>RESULTS</h1>
-    <h3>{{ liveresults }}</h3>
+    <h3>{{ liveresult }}</h3>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file, Response
+from flask import Flask, render_template, send_file, Response, jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
@@ -30,7 +30,8 @@ def home():
 
 @app.route('/livestream')
 def livestream():
-    return render_template('livestream.html', liveresults = asl_livestream.result)
+    print(asl_livestream.getResult())
+    return render_template('livestream.html', liveresult = asl_livestream.getResult())
 
 @app.route('/video')
 def video():

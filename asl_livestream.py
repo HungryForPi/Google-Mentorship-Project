@@ -18,6 +18,9 @@ def print_result(result: GestureRecognizerResult, output_image: mp.Image, timest
   
   print(result)
 
+def getResult():
+  return result
+
 options = GestureRecognizerOptions(
       base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
       running_mode=VisionRunningMode.LIVE_STREAM,
