@@ -8,34 +8,33 @@ GestureRecognizerResult = mp.tasks.vision.GestureRecognizerResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 
 # Create a gesture recognizer instance with the live stream mode:
+result = ""
+
 def print_result(result: GestureRecognizerResult, output_image: mp.Image, timestamp_ms: int):
   try:
-    print(result.gestures[0][0].category_name)
+    result = (result.gestures[0][0].category_name)
   except:
-    print("no result")
+    result = ("no result")
+  
+  print(result)
 
 options = GestureRecognizerOptions(
-    base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
-    running_mode=VisionRunningMode.LIVE_STREAM,
-    result_callback=print_result)
-with GestureRecognizer.create_from_options(options) as recognizer:
-  # Use OpenCV’s VideoCapture to start capturing from the webcam.
-  vid = cv2.VideoCapture(0)
-  print(vid.isOpened())
-  timestamp = 0
-  while(vid.isOpened()):
-      timestamp+=1
-    # Capture the video frame by frame
-      ret, frame = vid.read()
-    #   frame_timestamp_ms = 100
-      cv2.imshow('frame', frame)
-    # Convert the frame received from OpenCV to a MediaPipe’s Image object.
-      mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-      recognizer.recognize_async(mp_image,timestamp)
-      if cv2.waitKey(1) & 0xFF == ord('q'): #press q to stop
-          break
-  vid.release()
-  cv2.destroyAllWindows()
+      base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
+      running_mode=VisionRunningMode.LIVE_STREAM,
+      result_callback=print_result)
+
+def recognize(vid, timestamp):
+  with GestureRecognizer.create_from_options(options) as recognizer:
+    # Use OpenCV’s VideoCapture to start capturing from the webcam.
+    # vid = cv2.VideoCapture(0)
+    # print(vid.isOpened())
+      # Capture the video frame by frame
+    ret, frame = vid.read()
+  #   frame_timestamp_ms = 100
+    #cv2.imshow('frame', frame)
+  # Convert the frame received from OpenCV to a MediaPipe’s Image object.
+    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+    recognizer.recognize_async(mp_image,timestamp)
 # Create a loop to read the latest frame from the camera using VideoCapture#read()
 
 # Convert the frame received from OpenCV to a MediaPipe’s Image object.

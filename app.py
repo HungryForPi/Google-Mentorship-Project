@@ -6,7 +6,9 @@ import os
 from wtforms.validators import InputRequired
 
 import asl_recognizer
+import asl_livestream
 import cv2
+import mediapipe as mp
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
@@ -28,24 +30,28 @@ def home():
 
 @app.route('/livestream')
 def livestream():
-    return render_template('livestream.html')
+    return render_template('livestream.html', liveresults = asl_livestream.result)
 
 @app.route('/video')
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-camera=cv2.VideoCapture(0)
+vid=cv2.VideoCapture(0)
 
 def generate_frames():
+
+    timestamp = 0
     while True:
-            
         ## read the camera frame
-        success,frame=camera.read()
+        success,frame=vid.read()
         if not success:
             break
         else:
             ret,buffer=cv2.imencode('.jpg',frame)
             frame=buffer.tobytes()
+            timestamp += 1
+            asl_livestream.recognize(vid, timestamp)
+
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
