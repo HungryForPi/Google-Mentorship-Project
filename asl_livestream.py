@@ -8,18 +8,21 @@ GestureRecognizerResult = mp.tasks.vision.GestureRecognizerResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 
 # Create a gesture recognizer instance with the live stream mode:
-result = ""
+results = "a"
 
 def print_result(result: GestureRecognizerResult, output_image: mp.Image, timestamp_ms: int):
   try:
-    result = (result.gestures[0][0].category_name)
+    results = (result.gestures[0][0].category_name)
   except:
-    result = ("no result")
+    results = ("no result")
   
-  print(result)
+  # print(results)
+  return results
 
-def getResult():
-  return result
+# def getResult():
+#   # ans = print_result(GestureRecognizerResult,mp.Image, int):
+#   print(results)
+#   return results
 
 options = GestureRecognizerOptions(
       base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
@@ -37,7 +40,7 @@ def recognize(vid, timestamp):
     #cv2.imshow('frame', frame)
   # Convert the frame received from OpenCV to a MediaPipe’s Image object.
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-    recognizer.recognize_async(mp_image,timestamp)
+    return recognizer.recognize_async(mp_image,timestamp)
 # Create a loop to read the latest frame from the camera using VideoCapture#read()
 
 # Convert the frame received from OpenCV to a MediaPipe’s Image object.

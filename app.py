@@ -1,14 +1,14 @@
-from flask import Flask, render_template, send_file, Response, jsonify
+from flask import Flask, render_template, send_file, Response
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
 import os
 from wtforms.validators import InputRequired
+import mediapipe as mp
 
 import asl_recognizer
 import asl_livestream
 import cv2
-import mediapipe as mp
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
@@ -30,30 +30,43 @@ def home():
 
 @app.route('/livestream')
 def livestream():
-    print(asl_livestream.getResult())
-    return render_template('livestream.html', liveresult = asl_livestream.getResult())
+    return render_template('livestream.html')
 
 @app.route('/video')
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-vid=cv2.VideoCapture(0)
+import random
+camera=cv2.VideoCapture(0)
+
+result = ""
+answer = ""
+@app.route('/livestream/fps')
+def fps(): 
+    print("HI")
+    print(answer)
+    # livestream = asl_livestream.getResult()
+    # print(str(livestream))
+    # print(livestream)
+    # return (livestream)
+    # return (str(random.randint(25, 60)))
+    return answer
 
 def generate_frames():
-
     timestamp = 0
     while True:
+        
         ## read the camera frame
-        success,frame=vid.read()
+        success,frame=camera.read()
         if not success:
             break
         else:
             ret,buffer=cv2.imencode('.jpg',frame)
             frame=buffer.tobytes()
             timestamp += 1
-            asl_livestream.recognize(vid, timestamp)
-
-
+            result = asl_livestream.recognize(camera, timestamp)
+            answer = asl_livestream.print_result(result, mp.Image,timestamp)
+            print(answer)
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
