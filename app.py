@@ -4,9 +4,15 @@ from wtforms import FileField, SubmitField
 from werkzeug.utils import secure_filename
 import os
 from wtforms.validators import InputRequired
+import mediapipe as mp
 
 import asl_recognizer
+import asl_livestream
 import cv2
+
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
@@ -34,11 +40,16 @@ def livestream():
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
+import random
 camera=cv2.VideoCapture(0)
+@app.route('/fps')
+def fps():
+    return asl_livestream.resultsArr[-1] if len(asl_livestream.resultsArr)>0 else 'Nothing yet!'
 
 def generate_frames():
+    timestamp = 0
     while True:
-            
+        
         ## read the camera frame
         success,frame=camera.read()
         if not success:
@@ -46,7 +57,9 @@ def generate_frames():
         else:
             ret,buffer=cv2.imencode('.jpg',frame)
             frame=buffer.tobytes()
-
+            timestamp += 1
+            result = asl_livestream.recognize(camera, timestamp)
+            answer = asl_livestream.print_result(result, mp.Image,timestamp)
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
