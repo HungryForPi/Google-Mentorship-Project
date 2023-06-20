@@ -10,6 +10,10 @@ import asl_recognizer
 import asl_livestream
 import cv2
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER'] = 'static/files'
@@ -38,19 +42,9 @@ def video():
 
 import random
 camera=cv2.VideoCapture(0)
-
-result = ""
-answer = ""
-@app.route('/livestream/fps')
-def fps(): 
-    print("HI")
-    print(answer)
-    # livestream = asl_livestream.getResult()
-    # print(str(livestream))
-    # print(livestream)
-    # return (livestream)
-    # return (str(random.randint(25, 60)))
-    return answer
+@app.route('/fps')
+def fps():
+    return asl_livestream.resultsArr[-1] if len(asl_livestream.resultsArr)>0 else 'Nothing yet!'
 
 def generate_frames():
     timestamp = 0
@@ -66,7 +60,6 @@ def generate_frames():
             timestamp += 1
             result = asl_livestream.recognize(camera, timestamp)
             answer = asl_livestream.print_result(result, mp.Image,timestamp)
-            print(answer)
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 

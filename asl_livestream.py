@@ -7,6 +7,8 @@ GestureRecognizerOptions = mp.tasks.vision.GestureRecognizerOptions
 GestureRecognizerResult = mp.tasks.vision.GestureRecognizerResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 
+resultsArr = []
+
 # Create a gesture recognizer instance with the live stream mode:
 results = "a"
 
@@ -16,13 +18,9 @@ def print_result(result: GestureRecognizerResult, output_image: mp.Image, timest
   except:
     results = ("no result")
   
-  # print(results)
-  return results
-
-# def getResult():
-#   # ans = print_result(GestureRecognizerResult,mp.Image, int):
-#   print(results)
-#   return results
+  if(results != "no result"):
+    resultsArr.append(results)
+    print("".join(resultsArr))
 
 options = GestureRecognizerOptions(
       base_options=BaseOptions(model_asset_path='asl_gesture_recognizer_v2.task'),
