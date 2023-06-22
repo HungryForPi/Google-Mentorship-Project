@@ -1,4 +1,4 @@
-# Google-Mentorship-Project (2023)
+# A Gesture to the Deaf: Google-Mentorship-Project (2023)
 
 *Authors: Aditya Pahuja, Amber Shen, Calvin Zhang, Sophia Dasser*
 *Mentor: Vijay Bharadwaj*
