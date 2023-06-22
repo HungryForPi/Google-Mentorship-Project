@@ -1,29 +1,23 @@
 # Google-Mentorship-Project (2023)
 
 *Authors: Aditya Pahuja, Amber Shen, Calvin Zhang, Sophia Dasser*
+*Mentor: Vijay Bharadwaj*
 
-This project is a website that translates the American Sign Language alphabet into English. The user signs the letters into a live streaming video on the website, and the corresponding English letters are shown in real-time. (also maybe add in a section like the abstract we had explaining it)
+This project is a website that translates the American Sign Language alphabet into English. The user signs the letters into a live streaming video on the website, and the corresponding English letters are shown in real-time. The user can also upload an image of an ASL alphabet letter, and that will be recognized. 
 
 ## ASL GESTURE RECOGNITION
-### 1. **Tensorflow**
-**What it is**: *summary of what tensorflow is*
+### **MediaPipe**
+**What it is**: *a framework by Google for building machine-learning pipelines to process time-series data (video, audio, etc)*
 
-**Usage**: We trained a Tensorflow Keras model with the ___ dataset. By feeding images from the dataset to train the model, we ended up with a ___ accuracy rate for images. To implement this in video, we used **Python OpenCV** to cut each video into frames, which the model would then recognize the video. 
-
-### 2. **MediaPipe**
-**What it is**: *summary of mediapipe*
-
-**Usage**: We added the ASL alphabet as new gestures for MediaPipe to recognize. Then with **Python OpenCV**, we applied it to recognize the gestures in livestream data. 
+**Usage**: We trained our own model using the MediaPipe Gesture Recognizer task on the American Sign Language Dataset by @ayuraj on Kaggle.
 
 ## Website
-We programmed the website using **HTML** and **CSS**. We implemented livestream video using ___. 
+We programmed the website using **HTML** and **CSS**. The backend was done using Flask, which was how we added the image uploading as well as the livestream. We also used the OpenCV library to cut the livestream into frames for our model to recognize. 
 
 ## Problems encountered 
-- yes
-- yes
-- yes
+- We initially planned to have two different models, one trained using TensorFlow and the other using MediaPipe but decided to focus on MediaPipe after facing troubles with TensorFlow.
+- We had trouble training the model locally, so we switched to google colab
+- Google colab didn't support web cameras/opencv so we had to switch back to local machines after training the model
 
-**TODO — insert project description here at some point**
-
-*Note.* When committing, it would be helpful if you prefaced the commit message
-with (tensorflow) or (mediapipe), I think.
+**Project Demonstration Slides at the Stuy/Google final presentations meeting**
+https://docs.google.com/presentation/d/1r2m9Ih0FDBoaFsI1TKZNHNaNCeh4jdWtHoTPpEMDUl4/edit?usp=sharing
