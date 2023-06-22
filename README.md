@@ -5,6 +5,11 @@
 
 This project is a website that translates the American Sign Language alphabet into English. The user signs the letters into a live streaming video on the website, and the corresponding English letters are shown in real-time. The user can also upload an image of an ASL alphabet letter, and that will be recognized. 
 
+##Directions
+- Make sure you have Flask and Python downloaded!
+Run *python3 app.py* in your terminal, then open the IP Address that is given (127.0.0.1:5000).
+That's the website!
+
 ## ASL GESTURE RECOGNITION
 ### **MediaPipe**
 **What it is**: *a framework by Google for building machine-learning pipelines to process time-series data (video, audio, etc)*
